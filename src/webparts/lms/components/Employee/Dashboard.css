@@ -1,0 +1,69 @@
+shareweb-breadcrumb-item .Breadcrumb {
+  display: none;
+}
+div#workbenchPageContent {
+  max-width: none;
+}
+
+.Main-Div {
+  flex: 1;
+  display: flex;
+  background-color: white;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.basic {
+  height: 25vh;
+  align-items: center;
+  display: flex;
+}
+
+.calender {
+  height: 75vh;
+}
+
+.leave-bar {
+  padding: 0% 3%;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.nav-bar {
+  display: flex;
+  list-style: none;
+  height: 7%;
+}
+
+.li-bar-true {
+  border: 1px solid black;
+  padding: 0% 2%;
+  background-color: #EEEEEE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.li-bar-false{
+  border: 1px solid black;
+  padding: 0% 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.li-bar-false:hover{
+background-color: #EEEEEE;
+}
+
+.cal-div {
+  height: 93%;
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+}
+
