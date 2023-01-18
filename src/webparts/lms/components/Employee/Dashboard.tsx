@@ -46,21 +46,21 @@ const Dashboard = () => {
       <div className="calender">
         <nav className="nav-bar">
           <li
-            className={tabs==="Home"? "li-bar-true" : "li-bar-false"}
+            className={tabs === "Home" ? "li-bar-true" : "li-bar-false"}
             role={"button"}
             onClick={() => setTabs("Home")}
           >
             Home
           </li>
           <li
-           className={tabs==="Leaves"? "li-bar-true" : "li-bar-false"}
+            className={tabs === "Leaves" ? "li-bar-true" : "li-bar-false"}
             role={"button"}
             onClick={() => setTabs("Leaves")}
           >
             Apply Leaves
           </li>
           <li
-            className={tabs==="Policies"? "li-bar-true" : "li-bar-false"}
+            className={tabs === "Policies" ? "li-bar-true" : "li-bar-false"}
             role={"button"}
             onClick={() => setTabs("Policies")}
           >
@@ -71,7 +71,9 @@ const Dashboard = () => {
         {/* home dash border */}
 
         {tabs === "Home" ? (
-          <div className="border border-dark cal-div p-2">
+          <div className="border border-dark cal-div p-2 d-flex flex-column">
+            <div className="d-flex justify-content-end mb-3"><input type={"month"} /></div>
+            <div className="d-flex cal-div11">
             {date.map((items: any, index: any) => (
               <table key={index} className="d-flex flex-column">
                 <td className="d-flex border border-dark p-2 align-items-center justify-content-center ">
@@ -84,9 +86,11 @@ const Dashboard = () => {
                   A
                 </td>
               </table>
-            ))}
+            ))}</div>
           </div>
         ) : null}
+
+           
 
         {/* Apply Leave dash  */}
 

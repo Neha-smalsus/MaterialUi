@@ -62,8 +62,11 @@ background-color: #EEEEEE;
 
 .cal-div {
   height: 93%;
-  overflow-x: auto;
-  display: flex;
-  flex-direction: row;
+  
+}
+
+
+.cal-div11{
+overflow-x: auto;
 }
 
