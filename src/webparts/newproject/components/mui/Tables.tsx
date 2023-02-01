@@ -4,27 +4,13 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Web } from "sp-pnp-js";
 import "./Table.css";
 
-//const VISIBLE_FIELDS:any = ['name', 'rating', 'country', 'dateCreated', 'isAdmin'];
+
 
 const Tables = () => {
-  // const [data, setData]: any = React.useState([]);
-  const [eiLeast, setEiLeast]: any = React.useState([
-    // {
-    //   Item_x0020_Cover: { Url: "https://dummyimage.com/600x400/000/fff" },
-    //   ID: 0,
-    //   Title: "",
-    //   Categories: "",
-    //   PercentComplete: "",
-    //   Priority_x0020_Rank: "",
-    //   DueDate: "",
-    //   AuthorImgUrl:'',
-    //   EditorImgUrl:''
-    // },
-  ]);
-  const [userlists, setuserlists]: any = React.useState([]);
-  // const [userList, setUserList]: any = React.useState([]);
-
-  // Otherwise filter will be applied on fields such as the hidden column id
+  
+  const [eiLeast, setEiLeast]: any = React.useState([]);
+  let userlists : any ;
+  
   const columns = [
     { field: "idType", headerName: "Task ID", width: 90, editable: true,
     renderCell: (params: any) => {
@@ -45,9 +31,9 @@ const Tables = () => {
           )} */}  
           <img
             style={{ height: "30px", width: "30px", borderRadius: "50%" }}
-            src='https://hhhhteams.sharepoint.com/sites/HHHH/SiteCollectionImages/ICONS/Shareweb/site_ei.png'
+            src={params.row.siteImg}
             alt=""
-            title='EI'
+            title={params.row.siteTitle}
           />
 
                 {params.row.idType}
@@ -139,6 +125,149 @@ const Tables = () => {
     },
   ];
 
+  let dataEps:any;
+  const getEPSData=async()=>{
+    const web = new Web("https://hhhhteams.sharepoint.com/sites/HHHH/SP");
+    await web.lists
+      .getById("EC6F0AE9-4D2C-4943-9E79-067EC77AA613")
+      .items.select(
+        "Title",
+        "PercentComplete",
+        "SharewebTaskType/Title",
+        "SharewebTaskType/Id",
+        "Categories",
+        "Priority_x0020_Rank",
+        "DueDate",
+        "Created",
+        "Modified",
+        "Team_x0020_Members/Id",
+        "Team_x0020_Members/Title",
+        "ID",
+        "Responsible_x0020_Team/Id",
+        "Responsible_x0020_Team/Title",
+        "Editor/Title",
+        "Editor/Id",
+        "Author/Title",
+        "Author/Id"
+      )
+      .expand(
+        "Team_x0020_Members",
+        "Author",
+        "SharewebTaskType",
+        "Editor",
+        "Responsible_x0020_Team"
+      ).filter("Author/Id eq 32 and PercentComplete lt .99")
+      .getAll().then((data:any)=>{
+        data.map((item:any)=>{
+        item.siteImg='https://hhhhteams.sharepoint.com/sites/HHHH/SiteCollectionImages/ICONS/Shareweb/site_ei.png';
+        item.siteTitle='EI'
+        })
+        dataEps=data;
+        console.log("EPSEPSEPSEPSEPSEPS" , dataEps);
+        getGenderData();
+        
+      }).catch((err:any)=>{
+           console.log(err);
+      })
+
+  }
+
+
+  let dataGender:any;
+  const getGenderData=async()=>{
+    const web = new Web("https://hhhhteams.sharepoint.com/sites/HHHH/SP");
+    await web.lists
+      .getById("F8FD0ADA-0F3C-40B7-9914-674F63F72ABA")
+      .items.select(
+        "Title",
+        "PercentComplete",
+        "SharewebTaskType/Title",
+        "SharewebTaskType/Id",
+        "Categories",
+        "Priority_x0020_Rank",
+        "DueDate",
+        "Created",
+        "Modified",
+        "Team_x0020_Members/Id",
+        "Team_x0020_Members/Title",
+        "ID",
+        "Responsible_x0020_Team/Id",
+        "Responsible_x0020_Team/Title",
+        "Editor/Title",
+        "Editor/Id",
+        "Author/Title",
+        "Author/Id"
+      )
+      .expand(
+        "Team_x0020_Members",
+        "Author",
+        "SharewebTaskType",
+        "Editor",
+        "Responsible_x0020_Team"
+      ).filter("Author/Id eq 32 and PercentComplete lt .99")
+      .getAll().then((data:any)=>{
+        data.map((item:any)=>{
+        item.siteImg="https://hhhhteams.sharepoint.com/sites/HHHH/SiteCollectionImages/ICONS/Shareweb/site_gender.png";
+        item.siteTitle='Gender'
+        })
+        dataGender=data;
+        console.log("dataGendergender", dataGender);
+        getQAData();
+        
+      }).catch((err:any)=>{
+           console.log(err);
+      })
+
+  }
+
+  
+  let dataQA:any;
+  const getQAData=async()=>{
+    const web = new Web("https://hhhhteams.sharepoint.com/sites/HHHH/SP");
+    await web.lists
+      .getById("61B71DBD-7463-4B6C-AF10-6609A23AE650")
+      .items.select(
+        "Title",
+        "PercentComplete",
+        "SharewebTaskType/Title",
+        "SharewebTaskType/Id",
+        "Categories",
+        "Priority_x0020_Rank",
+        "DueDate",
+        "Created",
+        "Modified",
+        "Team_x0020_Members/Id",
+        "Team_x0020_Members/Title",
+        "ID",
+        "Responsible_x0020_Team/Id",
+        "Responsible_x0020_Team/Title",
+        "Editor/Title",
+        "Editor/Id",
+        "Author/Title",
+        "Author/Id"
+      )
+      .expand(
+        "Team_x0020_Members",
+        "Author",
+        "SharewebTaskType",
+        "Editor",
+        "Responsible_x0020_Team"
+      ).filter("Author/Id eq 32 and PercentComplete lt .99")
+      .getAll().then((data:any)=>{
+        data.map((item:any)=>{
+        item.siteImg="https://hhhhteams.sharepoint.com/sites/HHHH/SiteCollectionImages/ICONS/Shareweb/site_qa.png";
+        item.siteTitle='QA'
+        })
+        dataQA=data;
+        console.log("dataQAQAQAQA", dataQA);
+        getEIData();
+        
+      }).catch((err:any)=>{
+           console.log(err);
+      })
+
+  }
+
   const getEIData = async () => {
     const web = new Web("https://hhhhteams.sharepoint.com/sites/HHHH/SP");
     await web.lists
@@ -169,13 +298,21 @@ const Tables = () => {
         "SharewebTaskType",
         "Editor",
         "Responsible_x0020_Team"
-      )
+      ).filter("Author/Id eq 32 and PercentComplete lt .99")
       .getAll()
       .then((data) => {
-        // let a:any=[];
+        data.map((item:any)=>{
+          item.siteImg='https://hhhhteams.sharepoint.com/sites/HHHH/SiteCollectionImages/ICONS/Shareweb/site_eps.png';
+          item.siteTitle='EPS'
+          })
+        console.log("data EIEEIEIEIEI data", data);
+        data.push(...dataEps,...dataGender,...dataQA);
 
         data.map((item: any) => {
           userlists.map((element: any) => {
+
+            item.percentage= (item.PercentComplete*100) + '%'
+
             if((item.SharewebTaskType==undefined? null:   item.SharewebTaskType.Title)==='Activities'){
               item.idType='A'+item.Id;
             }
@@ -198,34 +335,6 @@ const Tables = () => {
               item.idType='T'+item.Id;
             }
            
-            // let ab:any=(item.Responsible_x0020_Team==undefined ? [{Id:""}] :item.Responsible_x0020_Team )
-            // let img:any=[];
-            // if(item.Id==2667){
-
-            //   ab.map((items:any)=>{
-            //     if(element.AssingedToUser != undefined &&
-            //       element.AssingedToUser.Id == items.Id){
-            //              img.push(element);
-
-            //       }
-            //   })
-
-            // }
-            // item.LeaderImg = element;
-
-            // (item.Responsible_x0020_Team).map((items:any)=>{
-            //   if(element.AssingedToUser != undefined &&
-            //     element.AssingedToUser.Id == items.Id){
-            //       item.LeaderImg = element;
-            //     }
-            // })
-
-            // (item.Team_x0020_Members).map((items:any)=>{
-            //   if(element.AssingedToUser != undefined &&
-            //     element.AssingedToUser.Id == items.Id){
-            //       item.TeamImg = element;
-            //     }
-            // })
 
             let date = new Date(item.Created);
             let day = "" + date.getDate();
@@ -278,23 +387,8 @@ const Tables = () => {
         });
         console.log("datadatadatadatadatadatadatadata", data);
 
-        let c: any = [];
-        data.map((item) => {
-          if (item.Author.Id == 32) {
-            if(item.PercentComplete<0.99){
-              item.percentage= (item.PercentComplete*100) + '%'
-              c.push(item);
-            }
-            
-          }
-        });
-        console.log("ccc", c);
-        setEiLeast(c);
-        // data.map((item)=>{
-        //   if(item.Author.Id == 32){
-
-        //    }
-        // })
+        setEiLeast(data);
+      
       })
       .catch((err) => {
         console.log(err);
@@ -314,11 +408,8 @@ const Tables = () => {
       .expand("AssingedToUser")
       .getAll()
       .then((data) => {
-        setuserlists(data);
-
-        // setUserList(data);
-
-        // matchList();
+       userlists=data;
+        getEPSData();
         console.log(data);
       })
       .catch((err) => {
@@ -332,9 +423,7 @@ const Tables = () => {
   // setEiLeast(tasks)
   //   };
 
-  React.useEffect(() => {
-    getEIData();
-  }, [userlists]);
+ 
   React.useEffect(() => {
     getTaskUserData();
   }, []);
