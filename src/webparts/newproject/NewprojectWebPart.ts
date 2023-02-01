@@ -37,12 +37,11 @@ export default class NewprojectWebPart extends BaseClientSideWebPart<INewproject
     ReactDom.render(element, this.domElement);
   }
 
-  protected onInit(): Promise<void> {
-    return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
-      pnp.setup({  
-        spfxContext: this.context  
-    }); 
+  protected async onInit(): Promise<void> {
+    const message = await this._getEnvironmentMessage();
+    this._environmentMessage = message;
+    pnp.setup({
+      spfxContext: this.context
     });
   }
 
